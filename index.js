@@ -4,14 +4,14 @@
 
 let meta = {
     value:'Ler um livro por dia',
-    checked:false,
-    isCheked:(info) => {
-        console.log(info)
-    }
+    checked:true
 }
 
-meta.log(meta.value);
-
-const criarMetas = () => {}
-
-//function criarMetas() {}
+let metas = [
+    meta,
+    {
+        value:"caminhar todos os dias",
+        checked:false
+    }
+]
+console.log(metas[1].value);
