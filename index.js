@@ -1,7 +1,17 @@
-// hello world
-const mensagem = "hello world!"
-{
-    const mensagem ="hello my"
-    console.log(mensagem);
+//let metas = ["jow","yoha"]
+
+//console.log(metas[1] + " e " + metas[0]);
+
+let meta = {
+    value:'Ler um livro por dia',
+    checked:false,
+    isCheked:(info) => {
+        console.log(info)
+    }
 }
-console.log(mensagem);
+
+meta.log(meta.value);
+
+const criarMetas = () => {}
+
+//function criarMetas() {}
