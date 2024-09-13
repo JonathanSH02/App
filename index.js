@@ -1,20 +1,58 @@
-const { select } = require('@inquirer/prompts')
+const { select, input, checkbox } = require ('@inquirer/prompts')
+
+let meta = {
+    value: 'Tomar água',
+    checked: false
+}
+let metas = [ meta ]
+
+const cadastrarMetas = async () => {
+    const meta = await input({message:"Digite a meta:"})
+
+    if(meta.length === 0){
+        console.log('Essa meta não pode ser vazia.')
+        return
+    }
+
+    metas.push(
+        {value:meta, checked:false}
+    )
+}
+
+const listarMetas = async () => {
+    const respostas =  await checkbox({
+        message:'use as setas para mudar de metas,o espaço para marcar ou desmarcar e o Enter para finalizar essa etapa',
+        choices: [...metas]
+    })
+
+    if(respostas.length == 0) {
+        console.log("Nenhuma meta foi digitada")
+        return
+    }
+
+    respostas.forEach((resposta) => {
+        const meta = metas.find((M) => {
+            return M.value == resposta
+        })
+
+        meta.checked = true 
+    })
+}
 
 const start = async () => {
 
     while (true) {
 
         const opcao = await select ({
-
-            message : "Menu >",
+            message: "Menu >",
             choices: [
                 {
-                    name:"Cadastra meta",
+                    name: "Cadastrar meta",
                     value: "cadastrar"
                 },
                 {
                     name: "Listar metas",
-                    value:"listar"
+                    value: "listar"
                 },
                 {
                     name: "Sair",
@@ -25,9 +63,11 @@ const start = async () => {
 
         switch(opcao) {
             case "cadastrar":
-                console.log("vamos cadastrar")
+                await cadastrarMetas()
+                console.log(metas)
                 break
             case "listar":
+                await listarMetas()
                 console.log("vamos listar")
                 break
             case "sair":
