@@ -5,3 +5,4 @@
 [x]Marca/Desmarcar Metas realizadas
 [x]Remover Metas
 [x]Sistema de mensagens
+[x]Persistir Dados
