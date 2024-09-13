@@ -1,6 +1,7 @@
 const { select, input, checkbox } = require('@inquirer/prompts')
 const { relative } = require('path')
 
+let mensagem = "Bem vindo";
 let meta = {
     value: 'Tomar água',
     checked: false
@@ -32,7 +33,7 @@ const listarMetas = async () => {
     })
 
     if (respostas.length == 0) {
-        console.log("Nenhuma meta foi digitada")
+        mensagem = "Nenhuma meta foi digitada"
         return
     }
 
@@ -44,7 +45,7 @@ const listarMetas = async () => {
         meta.checked = true
     })
 
-    console.log("Meta(s) marcadas como concluída(s)")
+   mensagem ="Meta(s) marcadas como concluída(s)"
 }
 
 const metasRealizadas = async () => {
@@ -53,7 +54,7 @@ const metasRealizadas = async () => {
     })
     
     if(realizadas.length == 0) {
-        console.log('Não existe metas realizadas')
+        mensagem = 'Não existe metas realizadas'
         return
     }
     
@@ -69,7 +70,7 @@ const metasAbertas = async () => {
     })
 
     if(aberta.length == 0) {
-        console.log("Não existem metas abertas!")
+        mensagem = "Não existem metas abertas!"
         return
     }
 
@@ -90,22 +91,33 @@ const deletarMetas = async () => {
     })
 
     if(itensDeletar.length == 0){
-        console.log("Nenhum item para deletar")
+        mensagem = "Nenhum item para deletar"
         return
     }
 
     itensDeletar.forEach((item) => {
-        metas.filter((meta) => {
+        metas = metas.filter((meta) => {
             return meta.value != item
         })
     })
 
-    console.log("Meta(s) deleta(s) com sucesso")
+    mensagem = "Meta(s) deleta(s) com sucesso"
+}
+
+const mostrarMensagem = () => {
+    console.clear();
+
+    if(mensagem != ""){
+        console.log(mensagem)
+        console.log("")
+        mensagem=""
+    }
 }
 
 const start = async () => {
 
     while (true) {
+        mostrarMensagem()
 
         const opcao = await select({
             message: "Menu >",
