@@ -22,7 +22,8 @@ const cadastrarMetas = async () => {
 const listarMetas = async () => {
     const respostas =  await checkbox({
         message:'use as setas para mudar de metas,o espaço para marcar ou desmarcar e o Enter para finalizar essa etapa',
-        choices: [...metas]
+        choices: [...metas],
+        instructions:false,
     })
 
     if(respostas.length == 0) {
@@ -30,13 +31,19 @@ const listarMetas = async () => {
         return
     }
 
+    metas.forEach((m) => {
+        m.checked = false
+    })
+
     respostas.forEach((resposta) => {
         const meta = metas.find((M) => {
             return M.value == resposta
         })
 
-        meta.checked = true 
+        meta.checked = true
     })
+
+    console.log("Meta(s) marcadas como concluída(s)")
 }
 
 const start = async () => {
